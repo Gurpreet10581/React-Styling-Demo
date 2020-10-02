@@ -1,4 +1,28 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import {withStyles} from '@material-ui/core/styles';
+import BottomNavigation from '@material-ui/core/BottomNavigation';
+import BottomNavigationAction from '@material-ui/core/BottomNavigationAction';
+import ContactSupportIcon from '@material-ui/icons/ContactSupport';
+import BuildIcon from '@material-ui/icons/Build';
+import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
+import QuestionAnswerIcon from '@material-ui/icons/QuestionAnswer';
+import PermContactCalendarIcon from '@material-ui/icons/PermContactCalendar';
+
+
+const styles = {
+  root: {
+    width: '100%',
+    marginTop: '5em',
+    backgroundColor: '#0B2249',
+    color: '#F78A7E'
+  },
+  icon: {
+    color: '#F78A7E'
+
+  }
+}
+
 
 class Footer extends React.Component {
   state = {
@@ -11,25 +35,27 @@ class Footer extends React.Component {
 
   render() {
     const { value } = this.state;
+    const {classes} =this.props;// this way we inject items created outside of component
 
     return (
-      <footer value={value} onChange={this.handleChange} showLabels className="classesroot">
-        <ul>
-          <li className="shoppingCartIcon" label="SHOP">SHOP
-          </li>
-          <li className="questionAnswerIcon" label="FAQ">FAQ
-          </li>
-          <li className="contactSupportIcon" label="SUPPORT">SUPPORT
-          </li>
-          <li className="buildIcon" label="MAINTAINANCE">MAINTAINANCE
-          </li>
-          <li className="permContactCalendarIcon" label="CONTACT">CONTACT
-          </li>
-        </ul>
-      </footer>
+      <BottomNavigation value={value} onChange={this.handleChange} showLabels className={classes.root}>
+          <BottomNavigationAction className={classes.icon} label="SHOP" icon={<ShoppingCartIcon/>}/>
+          
+          <BottomNavigationAction className={classes.icon}label="FAQ" icon={<QuestionAnswerIcon/>}/>
+          
+          <BottomNavigationAction className={classes.icon} label="SUPPORT" icon={<ContactSupportIcon/>}/>
+          
+          <BottomNavigationAction className={classes.icon} label="MAINTENANCE" icon={<BuildIcon/>}/>
+          
+          <BottomNavigationAction className={classes.icon} label="CONTACT" icon={<PermContactCalendarIcon/>}/>
+          
+      </BottomNavigation>
     );
   }
 }
 
+Footer.propTypes = {
+  classes: PropTypes.object.isRequired
+}
 
-export default Footer;
+export default withStyles(styles)(Footer);
